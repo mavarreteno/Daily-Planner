@@ -1,8 +1,50 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
-  // TODO: Add a listener for click events on the save button. This code should
+   $(document).ready(function() {
+        // Display current day at the top of the calendar
+        var currentDay = dayjs().format('dddd, MMMM D, YYYY');
+        $('#currentDay').text(currentDay);
+
+        //Color code time blocks based on past, present, future
+        //var currentHour = dayjs().format('H');
+       currentHour = 11
+
+        
+        for(i=0; i<9; i++) {
+          var hour = i + 9;
+          console.log(hour);
+          var now = $('.time-block').eq(i);
+          if (hour < currentHour) {
+            now.addClass('past');
+          } else if (hour > currentHour) {
+            now.addClass('future');
+          } else {
+            now.addClass('present');
+          }
+        };
+        
+        console.log(hour);
+      console.log($('.time-block')[2]);
+      console.log(currentHour);
+      console.log($('#hour-17'));
+
+      $(".saveBtn").on("click", function () {
+        var block = $(this).closest(".time-block");
+        var hour = block.attr("id");
+        var text = block.find(".description").val();
+
+        localStorage.setItem(hour, text);
+      });
+
+      for (var i = 9; i <= 17; i++) {
+        var savedText = localStorage.getItem("hour-" + i);
+        if (savedText) {
+          $("#hour-" + i + " .description").val(savedText);
+        }
+      }
+
+      // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
   // function? How can DOM traversal be used to get the "hour-x" id of the
@@ -20,4 +62,5 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
+    });
