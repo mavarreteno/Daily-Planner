@@ -7,8 +7,8 @@
         $('#currentDay').text(currentDay);
 
         //Color code time blocks based on past, present, future
-        //var currentHour = dayjs().format('H');
-       currentHour = 11
+        var currentHour = dayjs().format('H');
+       //currentHour = 11
 
         
         for(i=0; i<9; i++) {
